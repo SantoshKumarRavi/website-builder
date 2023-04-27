@@ -1,12 +1,14 @@
 import React from "react";
 
-const UpcomingEventsCard = ({title,Date,Time}) => {
-    const{month,date,year}=Date
-    const{start,end}=Time
+const UpcomingEventsCard = ({title,date,Time,link=false}) => {
+    const month=new Date(date).toDateString().slice(4,7).toUpperCase()
+    const currentdate=new Date(date).getDate()
+    const year=new Date(date).getFullYear()
+    const[start,end]=Time?.split("-");
 
   return (
-    <div className="px-16 md:px-32">
-    <div className="flex w-full  overflow-hidden  rounded-lg shadow-md ">
+    <div className=" w-full mb-1 px-2 max-w-2xl">{/*px-4 md:px-32 */}
+    <div className="flex w-full  overflow-hidden  rounded-lg shadow-md">
       <div className="flex flex-col items-center text-white justify-center w-1/4 md:w-1/6 py-2 bg-blue-600">
         <div>
           <svg
@@ -29,21 +31,22 @@ const UpcomingEventsCard = ({title,Date,Time}) => {
           </svg>
         </div>
         <div className="text-xs font-semibold">{month}</div>
-        <div className="text-3xl">{date}</div>
+        <div className="text-xl md:text-3xl font-bold">{currentdate}</div>
         <div className="text-xs">{year}</div>
       </div>
       <div className="p-4  w-full">
-          <div className="font-bold  text-left text-md md:text-xl">
+          <div className="font-bold  text-left text-xs md:text-xl">
                 {title}
           </div>
           <div className="flex justify-between items-center pt-2 md:pt-4">
             <div className="flex justify-center items-center">
               <svg
-                width="30"
-                height="30"
+                // width="30"
+                // height="30"
                 viewBox="0 0 24 24"
                 fill="white"
                 xmlns="http://www.w3.org/2000/svg"
+                className="w-8 h-8"
               >
                 <path
                   fill-rule="evenodd"
@@ -52,11 +55,13 @@ const UpcomingEventsCard = ({title,Date,Time}) => {
                   fill="#005AA9"
                 />
               </svg>
-              <div className="text-md">{start} to {end}</div>
+              <div className=" ml-2 text-sm md:text-md">{start?.trim()} {end&&`to ${end?.trim()}`?.trim()}</div>
             </div>
+            {link&&
             <button className="rounded-lg px-4 text-white py-1 bg-green-500 hover:bg-green-600 font-medium">
-              Register
-            </button>
+            Register
+          </button>
+            }
           </div>
       </div>
     </div>

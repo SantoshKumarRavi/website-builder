@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import Dropdown from '../utils/Dropdown';
-
-function Header() {
+import CallButton from "../assests/callButton.svg"
+import NavLinkContainer from "../subcomponents/NavLinkContainer"
+import MobNavLinkContainer from "../subcomponents/MobNavLinkContainer";
+function Header({ContactNo,image}) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-
+  const logoImage="https://4.imimg.com/data4/EA/UE/ANDROID-9039016/product-500x500.jpeg"
   const trigger = useRef(null);
   const mobileNav = useRef(null);
 
@@ -23,6 +24,9 @@ function Header() {
     document.addEventListener("click", clickHandler);
     return () => document.removeEventListener("click", clickHandler);
   });
+  function closeMobileNav(){
+    setMobileNavOpen(false);
+  }
 
   // close the mobile menu if the esc key is pressed
   useEffect(() => {
@@ -35,127 +39,68 @@ function Header() {
   });
  
   return (
-    <header className="w-full h-22">{/*absolute md:relative */}
+    <header className="w-full h-22  shadow-xl	">{/*absolute md:relative */}
       <div className="px-4 sm:px-6   ">
         <div className="flex  items-center justify-between">
-          <div className="w-20  ">
-            <Link to="/">
-              <svg
-                className="w-8 h-20 fill-current text-purple-600"
-                viewBox="0 0 32 32"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M31.952 14.751a260.51 260.51 0 00-4.359-4.407C23.932 6.734 20.16 3.182 16.171 0c1.634.017 3.21.28 4.692.751 3.487 3.114 6.846 6.398 10.163 9.737.493 1.346.811 2.776.926 4.262zm-1.388 7.883c-2.496-2.597-5.051-5.12-7.737-7.471-3.706-3.246-10.693-9.81-15.736-7.418-4.552 2.158-4.717 10.543-4.96 16.238A15.926 15.926 0 010 16C0 9.799 3.528 4.421 8.686 1.766c1.82.593 3.593 1.675 5.038 2.587 6.569 4.14 12.29 9.71 17.792 15.57-.237.94-.557 1.846-.952 2.711zm-4.505 5.81a56.161 56.161 0 00-1.007-.823c-2.574-2.054-6.087-4.805-9.394-4.044-3.022.695-4.264 4.267-4.97 7.52a15.945 15.945 0 01-3.665-1.85c.366-3.242.89-6.675 2.405-9.364 2.315-4.107 6.287-3.072 9.613-1.132 3.36 1.96 6.417 4.572 9.313 7.417a16.097 16.097 0 01-2.295 2.275z" />
-              </svg>
-            </Link>
+          <div className="flex-1 ">
+            <div className="w-20 h-15 md:h-20">
+            <a  href="#">
+              <img src={image||logoImage} className="rounded-full" alt=""/>
+            </a>
+            </div>
           </div>
-          <nav className="hidden md:flex md:grow flex-col">
-            <ul className="flex grow justify-end flex-wrap items-center">
-              <li>
-                <Link
-                  to="/signin"
-                  className="font-medium  hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
+          <nav className="hidden md:flex   flex-col ">
+            <div className="">
+            <ul className={`flex  justify-end flex-wrap items-center ${!ContactNo?"pt-3":""}`}>
+              {ContactNo&&<li>
+                <a
+                  to=""
+                  href={`#${"!"}`}
+                  style={{textDecoration: 'none',color:"black" }} 
+                  className="font-medium   hover:text-green-700 px-4 py-3 flex items-center transition duration-150 ease-in-out"
                 >
-                  Contact us
-                </Link>
+                  <div className="w-10 h-6 ">
+                  <img  src={CallButton} className="w-full h-full" alt=""/>
+                  </div>
+                  <div className="font-semibold	text-gray-500">
+                  {`+91-${ContactNo}`}
+                  </div>
+                </a>
               </li>
+              }
               <li>
-                <Link
-                  to="/signup"
-                  className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3 px-3 py-1"
+                <a
+                  href="https://sundergarh.youthindiaeschool.com/"
+                  target="_blank"
+                  style={{textDecoration: 'none',color:"white" }} 
+                  className="btn-sm font-semibold  text-white bg-theme hover:bg-green-900 ml-3 px-3 py-1 mt-2"
                 >
-                  Log in
-                </Link>
+                    Log in
+                </a>
               </li>
             </ul>
-            <div>
-              <ul className="flex grow justify-end flex-wrap items-center">
-                <li>
-                  <div className={`  ml-3 pb-4 w-24 group relative `}>
-                    <div
-                      className={`  mb-2  w-full group text-center`}
-                    >
-                      <Link to="/">Home</Link>
-                    </div>
-                    <span className="bg-blue-600  w-0 absolute h-1 block group-hover:w-full transition-all duration-300"></span>
-                  </div>
-                </li>
-                <li>
-                  <div className={`  ml-3 pb-4 w-24 group relative `}>
-                    <div
-                      className={`  mb-2 w-full group text-center`}
-                    >
-                      <Link to="/">About us</Link>
-                    </div>
-                    <span className="bg-blue-600  w-0   absolute h-1 block group-hover:w-full transition-all duration-300"></span>
-                  </div>
-                </li>
-                <li>
-                  <div className={`  ml-3 pb-4 w-24 group relative `}>
-                    <div
-                      className={`  mb-2 w-full group text-center`}
-                    >
-                      <Link to="/">Curriculum</Link>
-                    </div>
-                    <span className="bg-blue-600  w-0   absolute h-1 block group-hover:w-full transition-all duration-300"></span>
-                  </div>
-                </li>
-                <li>
-                  <div className={`  ml-3 pb-4 w-24 group relative `}>
-                    <div
-                      className={`  mb-2 w-full group text-center`}
-                    >
-                      <Link to="/">Events</Link>
-                    </div>
-                    <span className="bg-blue-600  w-0   absolute h-1 block group-hover:w-full transition-all duration-300"></span>
-                  </div>
-                </li>
-                <li>
-                  <div className={`  ml-3 pb-4 w-24 group relative `}>
-                    <div
-                      className={`  mb-2 w-full group text-center`}
-                    >
-                      <Link to="/">Facility</Link>
-                    </div>
-                    <span className="bg-blue-600  w-0   absolute h-1 block group-hover:w-full transition-all duration-300"></span>
-                  </div>
-                </li>
-                <li>
-                  <div className={`  ml-3 pb-4 w-24 group relative `}>
-                    <div
-                      className={`  mb-2 w-full group text-center`}
-                    >
-                      <Link to="/">Activity</Link>
-                    </div>
-                    <span className="bg-blue-600  w-0   absolute h-1 block group-hover:w-full transition-all duration-300"></span>
-                  </div>
-                </li>
-                <li>
-                  <div className={`  ml-3 pb-4 w-24 group relative `}>
-                    <div
-                      className={`  mb-2 w-full group text-center`}
-                    >
-                      <Link to="/">Gallery</Link>
-                    </div>
-                    <span className="bg-blue-600  w-0   absolute h-1 block group-hover:w-full transition-all duration-300"></span>
-                  </div>
-                </li>
-              </ul>
+            </div>
+            <div className=" flex  justify-end items-center">
+                  <NavLinkContainer title="Home" link="#home"/> 
+                  <NavLinkContainer title="About us" link="#About"/>
+                  <NavLinkContainer title="Curriculum" link="#Cocurricular"/>
+                  <NavLinkContainer title="Events" link="#Events"/>
+                  <NavLinkContainer title="Facility" link="#Facility"/>
+                  <NavLinkContainer title="Activity" link="#Extra-curricular"/>
+                  <NavLinkContainer title="Gallery" link="#Gallery"/>
             </div>
           </nav>
 
-          {/* Mobile menu */}
           <div className="md:hidden">
-            <button
+            <button    // Mobile menu 
               ref={trigger}
               className={`hamburger ${mobileNavOpen && "active"}`}
               aria-controls="mobile-nav"
               aria-expanded={mobileNavOpen}
               onClick={() => setMobileNavOpen(!mobileNavOpen)}
             >
-              <span className="sr-only">Menu</span>
               <svg
-                className="w-6 h-6 fill-current text-gray-300 hover:text-gray-200 transition duration-150 ease-in-out"
+                className="w-6 h-6 fill-current text-theme hover:text-green-500 transition duration-150 ease-in-out"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -168,30 +113,22 @@ function Header() {
             <nav
               id="mobile-nav"
               ref={mobileNav}
-              className="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out"
+              className="absolute z-50 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out"
               style={
                 mobileNavOpen
                   ? { maxHeight: mobileNav.current.scrollHeight, opacity: 1 }
                   : { maxHeight: 0, opacity: 0.8 }
               }
             >
-              <ul className="bg-gray-800 px-4 py-2">
-                <li>
-                  <Link
-                    to="/signin"
-                    className="flex font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center"
-                  >
-                    Sign in
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/signup"
-                    className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm  bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out"
-                  >
-                    Sign up
-                  </Link>
-                </li>
+              <ul className="bg-green-50 px-4 py-2 rounded-xl">
+                
+                <MobNavLinkContainer closeMobileNav={closeMobileNav}  title="Home"  link={"Home"}/>
+                <MobNavLinkContainer closeMobileNav={closeMobileNav}  title="About us"  link={"About"}/>
+                <MobNavLinkContainer closeMobileNav={closeMobileNav} title="Curriculum"  link={"Cocurricular"}/>
+                <MobNavLinkContainer closeMobileNav={closeMobileNav} title="Events" link={"Events"}/>
+                <MobNavLinkContainer closeMobileNav={closeMobileNav}  title="Facility" link={"Facility"}/>
+                <MobNavLinkContainer closeMobileNav={closeMobileNav} title="Activity" link={"Extra-curricular"}/>
+                <MobNavLinkContainer closeMobileNav={closeMobileNav} title="Gallery" link={"Gallery"}/>
               </ul>
             </nav>
           </div>

@@ -1,84 +1,56 @@
 import React, { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
+import AchievementCard from "../subcomponents/AchievementCard";
+import ArrowLeft from "../assests/arrowLeft.svg"
+import ArrowRight from "../assests/arrowRight.svg"
 
-const Achievements = () => {
-  const src = "http://techslides.com/demos/sample-videos/small.mp4";
-
+const Achievements = ({Achievements}) => {
   return (
-    <div className=""  >
-      <h1 className="text-left  text-3xl my-2 md:my-4  px-8">Achievements</h1>
-      <div className="w-full h-full px-12" >
+    <>
+    {Achievements?.length>0&&
+    <div className="my-4"  >
+      <h1 className="text-left  text-xl my-2  font-semibold	text-gray-800 px-8">Achievements</h1>
+      <div className="w-full h-full mx-4 md:mt-8 " >
       <Carousel
-        showStatus
+        showStatus={false}
         showThumbs={false}
         swipeable
         infiniteLoop
+        renderArrowPrev={(clickHandler, hasPrev) => {
+          return (
+            <div
+              className={`${
+                hasPrev ? "absolute" : "hidden"
+              } flex left-0 h-full  justify-center items-center opacity-50 hover:opacity-100 cursor-pointer z-20`}
+              onClick={clickHandler}
+            >
+              <img src={ArrowLeft} className="w-full  h-9 text-white" />
+            </div>
+          );
+        }}
+        renderArrowNext={(clickHandler, hasNext) => {
+          return (
+            <div
+              className={`${
+                hasNext ? "absolute" : "hidden"
+              } top-0 bottom-0 right-5  flex justify-center items-center p-3 opacity-50 hover:opacity-100 cursor-pointer z-20`}
+              onClick={clickHandler}
+            >
+              <img src={ArrowRight} className="w-9 h-9 text-white" />
+            </div>
+          );
+        }}
+        showArrows={true}
         autoPlay={false}
         interval={2000}
       >
-        <div  className="w-full h-full flex flex-col  ">
-          <div style={{height:"70%"}}  className="w-full  ">{/*style={{height:"70%"}} */}
-            <video controls className="w-full h-full">
-              <source className="w-full h-full" src={src} type="video/mp4" />
-            </video>
-              {/* <img
-              className="w-full h-full"
-              alt=""
-              src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1"
-            /> */}
-          </div>
-          <div  className="w-full ">{/*style={{height:"20%"}} */}
-          <h1 className="text-left text-xs  md:text-xl my-1 md:my-4 font-semibold">
-            1 International Chess competition 2023- 1st Prize
-          </h1>
-          <p className="text-left text-xs md:text-lg ">
-            Members of the Kinkaid community are reliable and hold themselves
-            and others accountable for their actions. We do not make excuses,
-            blame others, or take unwarranted credit.
-          </p>
-          </div>
-        </div>
-        <div  className="w-full h-full flex flex-col  ">
-          <div style={{height:"70%"}}  className="w-full  ">{/*style={{height:"70%"}} */}
-              <img
-              className="w-full h-full"
-              alt=""
-              src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1"
-            />
-          </div>
-          <div  className="w-full ">{/*style={{height:"20%"}} */}
-          <h1 className="text-left text-xs  md:text-xl my-1 md:my-4 font-semibold">
-            1 International Chess competition 2023- 1st Prize
-          </h1>
-          <p className="text-left text-xs md:text-lg ">
-            Members of the Kinkaid community are reliable and hold themselves
-            and others accountable for their actions. We do not make excuses,
-            blame others, or take unwarranted credit.
-          </p>
-          </div>
-        </div>
-        <div  className="w-full h-full flex flex-col  ">
-          <div style={{height:"70%"}}  className="w-full  ">{/*style={{height:"70%"}} */}
-              <img
-              className="w-full h-full"
-              alt=""
-              src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1"
-            />
-          </div>
-          <div  className="w-full ">{/*style={{height:"20%"}} */}
-          <h1 className="text-left text-xs  md:text-xl my-1 md:my-4 font-semibold">
-            1 International Chess competition 2023- 1st Prize
-          </h1>
-          <p className="text-left text-xs md:text-lg ">
-            Members of the Kinkaid community are reliable and hold themselves
-            and others accountable for their actions. We do not make excuses,
-            blame others, or take unwarranted credit.
-          </p>
-          </div>
-        </div>
+        {Achievements?.map((obj,i)=><AchievementCard key={i} data={obj}/>)}
       </Carousel>
+
       </div>
     </div>
+    }
+    </>
   );
 };
 

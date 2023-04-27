@@ -2,7 +2,7 @@ import React from "react";
 import CurriculumMainCard from "../subcomponents/CurriculumMainCard";
 import MultiCarousel from "react-multi-carousel";
 import MultiCarouselCard from "../subcomponents/MultiCarouselCard";
-const Curriculum = () => {
+const Curriculum = ({Curriculum}) => {
 const responsive = {
         superLargeDesktop: {
           // the naming can be any, depends on you.
@@ -24,9 +24,11 @@ const responsive = {
       };
 
   return (
-    <div className='px-12'>
-        <h1 className="text-left  text-3xl my-2 md:my-4">Our Curriculum</h1>
-      <MultiCarousel responsive={responsive}
+    <>
+    {Curriculum?.length>0&&
+    <div className='px-12 my-4' id="Curriculum">
+        <h1 className="text-left font-semibold	text-gray-800  text-xl my-2 md:my-4">Our Curriculum</h1>
+      {Curriculum&&<MultiCarousel responsive={responsive}
         showDots={true}
         infinite={true}
         autoPlay={false}
@@ -38,12 +40,12 @@ const responsive = {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        <MultiCarouselCard title="Standard XII" download/>
-        <MultiCarouselCard title="Standard X" download/>
-        <MultiCarouselCard title="Standard IX" download/>
-        <MultiCarouselCard title="Standard VIII" download/>
+        {Curriculum?.map((obj,i)=><MultiCarouselCard key={i} Image={obj?.image} title={obj?.className} link={obj?.pdf_link} download/>)}
       </MultiCarousel>
+    }
     </div>
+    }
+    </>
   );
 };
 

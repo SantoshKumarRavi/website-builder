@@ -2,12 +2,12 @@ import React from 'react'
 import MultiCarousel from "react-multi-carousel";
 import MultiCarouselCard from "../subcomponents/MultiCarouselCard";
 
-const Faculty = () => {
+const Faculty = ({Faculty}) => {
     const responsive = {
         superLargeDesktop: {
           // the naming can be any, depends on you.
           breakpoint: { max: 4000, min: 3000 },
-          items: 5
+          items: 6
         },
         desktop: {
           breakpoint: { max: 3000, min: 1024 },
@@ -23,9 +23,11 @@ const Faculty = () => {
         }
       }
   return (
-    <div className='px-12'>
-    <h1 className="text-left  text-3xl my-2 md:my-4">Faculty</h1>
-    <MultiCarousel responsive={responsive}
+    <>
+    {Faculty?.length>0&&
+    <div className='px-8 my-4 '>
+    <h1 className="text-left font-semibold	text-gray-800  text-xl my-2 md:my-4">Faculty</h1>
+    {Faculty&&<MultiCarousel responsive={responsive}
         showDots={true}
         infinite={true}
         autoPlay={false}
@@ -37,12 +39,12 @@ const Faculty = () => {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        <MultiCarouselCard title="Alexa" designation="Faculty-Maths"/>
-        <MultiCarouselCard title="Raju" designation="Faculty-English"/>
-        <MultiCarouselCard title="Mythili" designation="Faculty-SocialScience" />
-        <MultiCarouselCard title="Ramu"  designation="Faculty-Maths"/>
+        {Faculty?.map((obj,i)=><MultiCarouselCard index={i} key={i} Image={obj.image} title={obj.name} designation={obj.designation}/>)}
       </MultiCarousel>
+      }
     </div>
+    }
+    </>
   )
 }
 
